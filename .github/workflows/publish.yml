@@ -2,9 +2,9 @@
 name: Build and push Docker image
 
 # Trigger the workflow on release events
-on:
-  release:
-    types: [created]
+#on:
+#  release:
+#    types: [created]
 
 # Define the job
 jobs:
