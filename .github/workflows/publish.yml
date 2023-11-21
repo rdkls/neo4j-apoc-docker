@@ -1,0 +1,44 @@
+# Name of the workflow
+name: Build and push Docker image
+
+# Trigger the workflow on release events
+on:
+  release:
+    types: [created]
+
+# Define the job
+jobs:
+  docker:
+    # Run the job on ubuntu-latest
+    runs-on: ubuntu-latest
+    # Steps of the job
+    steps:
+      # Check out the repository
+      - name: Check out the repository
+        uses: actions/checkout@v2
+      
+      # Log in to Docker Hub
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      
+      # Build and push the Docker image to rdkls/neo4j-apoc:latest
+      - name: Build and push the Docker image to rdkls/neo4j-apoc:latest
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: rdkls/neo4j-apoc:latest
+      
+      # Build and push the Docker image to rdkls/neo4j-apoc:5:13.0-community
+      - name: Build and push the Docker image to rdkls/neo4j-apoc:5:13.0-community
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: rdkls/neo4j-apoc:5:13.0-community
+
