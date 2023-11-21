@@ -36,5 +36,5 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: rdkls/neo4j-apoc:5:13.0-community
+          tags: rdkls/neo4j-apoc:5.13.0-community
 
